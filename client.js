@@ -1,6 +1,8 @@
-const { Discord, MessageEmbed, version } = require('discord.js');
-const botData = require("./database/Client.js");
-const bot = new botData();
+const { MessageEmbed, version } = require('discord.js');
+//const botData = require("./database/Client.js");
+//const bot = new botData();
+const Discord = require('discord.js')
+const bot = new Discord.Client();
 const { prefix, token, color, owner } = require('./config.json');
 const { readdirSync, fs } = require("fs");
 const { join } = require("path");
@@ -62,18 +64,18 @@ bot.on('message', async message => {
     };
 
     if (commandName === "stats" || commandName === "about" || commandName === "info" || commandName === "i") {
-        const voices = bot.channels.filter(c => c.type === "voice").size;
-        const texts = bot.channels.filter(c => c.type === "text").size;
-        const catego = bot.channels.filter(c => c.type === "category").size;
+        const voices = bot.channels.cache.filter(c => c.type === "voice").size;
+        const texts = bot.channels.cache.filter(c => c.type === "text").size;
+        const catego = bot.channels.cache.filter(c => c.type === "category").size;
         const duration = moment.duration(bot.uptime).format(" D [d], H [h], m [m], s [s]");
         const embed = new MessageEmbed().setAuthor(`${bot.user.username} | Status`, bot.user.displayAvatarURL).setDescription(`
     \n
-    Guilds: \`${bot.guilds.size}\` 
-    Users: \`${bot.users.size}\`
+    Guilds: \`${bot.guilds.cache.size}\` 
+    Users: \`${bot.users.cache.size}\`
     
     
     **__Info__**
-    Owner:  \`${bot.users.get(owner).tag}\`
+    Owner:  \`${bot.users.cache.get(owner).tag}\`
     Version:  \`1.0.2\`
     Node.js:  \`${process.version}\`
     Discord.js:  \`v${version}\`
