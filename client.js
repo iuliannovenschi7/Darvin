@@ -3,7 +3,7 @@ const { MessageEmbed, version } = require('discord.js');
 //const bot = new botData();
 const Discord = require('discord.js')
 const bot = new Discord.Client();
-const { prefix, token, color, owner } = require('./config.json');
+const { prefix, color, owner } = require('./config.json');
 const { readdirSync, fs } = require("fs");
 const { join } = require("path");
 const moment = require("moment");
@@ -94,4 +94,4 @@ bot.on('message', async message => {
 });
 
 
-bot.login(token);
+bot.login(process.env.TOKEN);
