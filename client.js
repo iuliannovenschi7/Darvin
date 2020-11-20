@@ -1,5 +1,5 @@
 const { MessageEmbed, version } = require('discord.js');
-//const botData = require("./database/Client.js");
+const botData = require("./database/Client.js");
 const bot = new botData();
 const Discord = require('discord.js')
 
