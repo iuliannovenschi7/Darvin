@@ -25,7 +25,7 @@ const clean = text => {
 const commandFiles = readdirSync(join(__dirname, "cmds")).filter(file => file.endsWith(".js"));
 for (const file of commandFiles) {
     const command = require(join(__dirname, "cmds", `${file}`));
-    bot.commands.cache.set(command.name, command);
+    bot.commands.set(command.name, command);
 }
 
 bot.once('ready', () => {
