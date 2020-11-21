@@ -40,7 +40,7 @@ for (const file of commandFiles) {
 //joined a server
 bot.on("guildCreate", guild => {
     console.log("Joined a new guild: " + guild.name);
-    var logm = bot.channels.get("779775995905310750");
+    var logm = bot.channels.cache.get("779775995905310750");
     const serverslog = new Discord.MessageEmbed()
         .setTitle("New server :white_check_mark:")
         .setColor(color)
@@ -55,7 +55,7 @@ bot.on("guildCreate", guild => {
 //removed from a server
 bot.on("guildDelete", guild => {
     console.log("Left a guild: " + guild.name);
-    var logm = bot.channels.get("779775995905310750");
+    var logm = bot.channels.cache.get("779775995905310750");
     const serverslog = new Discord.MessageEmbed()
         .setTitle("Left server :white_check_mark:")
         .setColor(color)
