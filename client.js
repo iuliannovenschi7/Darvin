@@ -1,5 +1,5 @@
 const { MessageEmbed, version } = require('discord.js');
-const botData = require("./database/Client.js");
+const botData = require("./database/bot.js");
 const bot = new botData();
 const Discord = require('discord.js')
 
@@ -36,6 +36,37 @@ for (const file of commandFiles) {
     bot.commands.set(command.name, command);
 }
 
+let guildArray = bot.guilds.array();
+
+//joined a server
+bot.on("guildCreate", guild => {
+    console.log("Joined a new guild: " + guild.name);
+    var logm = bot.channels.get("779775995905310750");
+    const serverslog = new Discord.MessageEmbed()
+        .setTitle("New server :white_check_mark:")
+        .setColor(color)
+        .addField("Name", `${guild.name}`, true)
+        .addField("Has:", `${guild.memberCount} members`, true)
+        .addField("Owner:", `${guild.owner.user.tag}`, true)
+        .setTimestamp()
+        .setFooter(`ID: ${guild.id}`);
+    logm.send(serverslog)
+})
+
+//removed from a server
+bot.on("guildDelete", guild => {
+    console.log("Left a guild: " + guild.name);
+    var logm = bot.channels.get("779775995905310750");
+    const serverslog = new Discord.MessageEmbed()
+        .setTitle("Left server :white_check_mark:")
+        .setColor(color)
+        .addField("Name", `${guild.name}`, true)
+        .addField("Had:", `${guild.memberCount} members`, true)
+        .addField("Owner:", `${guild.owner.user.tag}`, true)
+        .setTimestamp()
+        .setFooter(`ID: ${guild.id}`);
+    logm.send(serverslog)
+})
 
 bot.on('message', async message => {
     console.log(message.content);
@@ -57,6 +88,7 @@ bot.on('message', async message => {
     /*---------------------------------------------------------------------------*/
 
     if (commandName === "uptime") {
+        if (message.author.id !== "463697446447480832") return;
         var durr = moment
             .duration(bot.uptime)
             .format(" D [days], H [h], m [m], s [s]");
@@ -69,6 +101,7 @@ bot.on('message', async message => {
     };
 
     if (commandName === "stats" || commandName === "about" || commandName === "info" || commandName === "i") {
+        if (message.author.id !== "463697446447480832") return;
         const voices = bot.channels.cache.filter(c => c.type === "voice").size;
         const texts = bot.channels.cache.filter(c => c.type === "text").size;
         const catego = bot.channels.cache.filter(c => c.type === "category").size;
