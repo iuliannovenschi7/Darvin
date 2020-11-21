@@ -96,6 +96,28 @@ bot.on('message', async message => {
     RAM Usage:  \`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} mb\``).setColor(color)
         message.channel.send(embed);
     };
+
+    if (commandName === "e" || commandName === "eval") {
+        if (message.author.id !== "463697446447480832") return;
+        try {
+            const code = args.join(" ");
+            let evaled = eval(code);
+            if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
+            //message.channel.send(clean(evaled), { code: "xl" });
+            var eem = new Discord.MessageEmbed()
+                .setTitle("Results")
+                .addField("Input", `\`\`\`${code}\`\`\``)
+                .addField("Output", `\`\`\`${evaled}\`\`\``)
+                .setColor(color)
+                .setTimestamp();
+            message.channel.send(eem)
+                .then(eem => {
+                    eem.delete(60000)
+                })
+        } catch (err) {
+            message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+        }
+    }
 });
 
 
