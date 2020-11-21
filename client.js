@@ -36,7 +36,6 @@ for (const file of commandFiles) {
     bot.commands.set(command.name, command);
 }
 
-let guildArray = bot.guilds.array();
 
 //joined a server
 bot.on("guildCreate", guild => {
