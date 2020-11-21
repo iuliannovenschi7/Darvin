@@ -4,7 +4,8 @@ const bot = new botData();
 const Discord = require('discord.js')
 
 const { prefix, color, owner } = require('./config.json');
-const { readdirSync, fs } = require("fs");
+const { readdirSync } = require("fs");
+const fs = require('fs');
 const { join } = require("path");
 const moment = require("moment");
 require("moment-duration-format");
@@ -20,7 +21,14 @@ const clean = text => {
     else return text;
 };
 
-
+fs.readdir("./events/", (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+        const event = require(`./events/${file}`);
+        let eventName = file.split(".")[0];
+        bot.on(eventName, event.bind(null, bot));
+    });
+});
 
 const commandFiles = readdirSync(join(__dirname, "cmds")).filter(file => file.endsWith(".js"));
 for (const file of commandFiles) {
@@ -28,9 +36,6 @@ for (const file of commandFiles) {
     bot.commands.set(command.name, command);
 }
 
-bot.once('ready', () => {
-    console.log('Ready!');
-});
 
 bot.on('message', async message => {
     console.log(message.content);
