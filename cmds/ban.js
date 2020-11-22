@@ -12,12 +12,12 @@ module.exports = {
       return message.channel.send(
         "You don't have permissions to use this!"
       );
-    if (!args.length) return message.channel.send("Give me an ID or mention someone first");
+    if (!args.length) return message.channel.send("Give me an ID ");
     //	var target = message.author;
-    var member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-    //if (member.id === "779426058583408661") return;
+    var member = message.guild.members.cache.get(args[0]);
+    if (args[0] === "779426058583408661") return;
     if (!member) return message.channel.send("That user doesn't exist or he is not in this server");
-    //if (member.id === "463697446447480832") return;
+    if (args[0] === "463697446447480832") return;
     if (!member.bannable)
       return message.channel.send(
         "My roles are not high enough or i don't have `BAN MEMBERS` permission to ban this user!"
@@ -32,9 +32,7 @@ module.exports = {
     }
     await member
       .ban(reason)
-      .catch(error =>
-        message.channel.send(`Sorry, I coldn't ban because of: ${error}`)
-      );
+      .catch(error =>console.log(error));
     let flo = message.guild.channels.cache.get("779775995905310750");
     let bean = new Discord.MessageEmbed()
       .setColor(color)
