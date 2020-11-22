@@ -148,6 +148,40 @@ bot.on('message', async message => {
             message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
         }
     }
+
+    const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    if (!command) return;
+    if (command.guildOnly && message.channel.type !== "text") return message.reply("I can't execute that command inside DMs!");
+    if (!bot.cooldowns.has(command.name)) {
+        bot.cooldowns.set(command.name, new Collection());
+    }
+    const now = Date.now();
+    const timestamps = bot.cooldowns.get(command.name);
+    const cooldownAmount = (command.cooldown || 3) * 1000;
+    if (timestamps.has(message.author.id)) {
+    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+    if (now < expirationTime) {
+      const timeLeft = (expirationTime - now) / 1000;
+      return message.channel.send(
+        `Please wait ${timeLeft.toFixed(1)} more second(s)`).then(message=> message.delete(5000));
+    }
+  }
+    timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+    try {
+        command.execute(message, args);
+    } catch (error) {
+    console.error(error);
+    message.channel.send(error);
+  }
+
+
+
+
+
+
+
+
 });
 
 
