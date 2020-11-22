@@ -6,7 +6,7 @@ module.exports = {
   args: true,
   cooldown: 5,
   async execute(message, args, color, bot) {
-    if (!message.author.permissions.has("BAN_MEMBERS") || !message.author.id === "463697446447480832")
+    if (!message.author.hasPermission("BAN_MEMBERS") || !message.author.id === "463697446447480832")
       return message.channel.send(
         "You don't have permissions to use this!"
       );
