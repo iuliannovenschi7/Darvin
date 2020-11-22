@@ -1,6 +1,6 @@
 const { MessageEmbed, version } = require('discord.js');
 const botData = require("./database/bot.js");
-const bot = new botData();
+const bot = new botData({fetchAllMembers: true});
 const Discord = require('discord.js')
 const { Collection } = require("discord.js");
 const { prefix, color, owner } = require('./config.json');
