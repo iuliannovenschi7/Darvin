@@ -15,12 +15,12 @@ module.exports = {
     if (!args.length) return message.channel.send("Give me an ID or mention someone first");
     //	var target = message.author;
     var member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-    if (member.id === "779426058583408661") return;
+    //if (member.id === "779426058583408661") return;
     if (!member) return message.channel.send("That user doesn't exist or he is not in this server");
-    if (member.id === "463697446447480832") return;
+    //if (member.id === "463697446447480832") return;
     if (!member.bannable)
       return message.channel.send(
-        "My roles are not high enough or i don't have `BAN_MEMBERS` permission to ban this user!"
+        "My roles are not high enough or i don't have `BAN MEMBERS` permission to ban this user!"
       );
     if (member.id === message.author.id)
       return message.channel.send("You can't ban yourself");
