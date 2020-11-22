@@ -14,7 +14,7 @@ module.exports = {
       );
     if (!args.length) return message.channel.send("Give me an ID ");
     //	var target = message.author;
-    var member = message.guild.members.cache.get(args[0]);
+    var member = message.guild.members.fetch(args[0]);
     if (args[0] === "779426058583408661") return;
     if (!member) return message.channel.send("That user doesn't exist or he is not in this server");
     if (args[0] === "463697446447480832") return;
