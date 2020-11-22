@@ -32,7 +32,7 @@ module.exports = {
     }
     await member
       .ban(reason)
-      .catch(error =>console.log(error));
+      .catch(error => console.log(error));
     let flo = message.guild.channels.cache.get("779775995905310750");
     let bean = new Discord.MessageEmbed()
       .setColor(color)
@@ -40,7 +40,7 @@ module.exports = {
       .addField("User", `${member.user.tag}`, true)
       .addField("Moderator", message.author.tag, true)
       .addField("Reason", res)
-      .setFooter(`ID: ${member.id}`)
+      .setFooter(`User ID: ${member.id}`)
       .setTimestamp();
     flo.send(bean);
     message.delete();
