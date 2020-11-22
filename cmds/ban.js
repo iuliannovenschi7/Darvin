@@ -1,11 +1,13 @@
 const Discord = require('discord.js');
+const bot = require("discord.js");
+const { relativeTimeRounding } = require('moment');
 module.exports = {
   name: "ban",
   aliases: ["ban"],
   description: "ban",
   args: true,
   cooldown: 5,
-  async execute(message, args, color, bot) {
+  async execute(message, args, color) {
     if (!message.member.hasPermission("BAN_MEMBERS") || !message.author.id === "463697446447480832")
       return message.channel.send(
         "You don't have permissions to use this!"
@@ -13,6 +15,7 @@ module.exports = {
     if (!args.length) return message.channel.send("Give me an ID or mention someone first");
     //	var target = message.author;
     let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+    if (member.id === "779426058583408661") return;
     if (!member) return message.channel.send("That user doesn't exist or he is not in this server");
     if (member.id === "463697446447480832") return;
     if (!member.bannable)
