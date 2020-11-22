@@ -14,7 +14,7 @@ module.exports = {
       );
     if (!args.length) return message.channel.send("Give me an ID or mention someone first");
     //	var target = message.author;
-    let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+    var member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
     if (member.id === "779426058583408661") return;
     if (!member) return message.channel.send("That user doesn't exist or he is not in this server");
     if (member.id === "463697446447480832") return;
