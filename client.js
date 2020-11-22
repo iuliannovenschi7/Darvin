@@ -46,7 +46,7 @@ bot.on("guildCreate", guild => {
         .setColor(color)
         .addField("Name", `${guild.name}`, true)
         .addField("Has:", `${guild.memberCount} members`, true)
-        .addField("Owner:", `${guild.members.cache.get(guild.owner.id).user.tag}`, true)
+        .addField("Owner:", `${guild.members.cache.get(guild.owner.user.id).user.tag}`, true)
         .setTimestamp()
         .setFooter(`ID: ${guild.id}`);
     logm.send(serverslog)
@@ -61,7 +61,7 @@ bot.on("guildDelete", guild => {
         .setColor(color)
         .addField("Name", `${guild.name}`, true)
         .addField("Had:", `${guild.memberCount} members`, true)
-        .addField("Owner:", `${guild.members.cache.get(guild.owner.id).user.tag}`, true)
+        .addField("Owner:", `${guild.members.cache.get(guild.owner.user.id).user.tag}`, true)
         .setTimestamp()
         .setFooter(`ID: ${guild.id}`);
     logm.send(serverslog)
