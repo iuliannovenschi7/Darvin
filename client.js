@@ -2,7 +2,7 @@ const { MessageEmbed, version } = require('discord.js');
 const botData = require("./database/bot.js");
 const bot = new botData();
 const Discord = require('discord.js')
-
+const { Collection } = require("discord.js");
 const { prefix, color, owner } = require('./config.json');
 const { readdirSync } = require("fs");
 const fs = require('fs');
@@ -159,21 +159,21 @@ bot.on('message', async message => {
     const timestamps = bot.cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 3) * 1000;
     if (timestamps.has(message.author.id)) {
-    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-    if (now < expirationTime) {
-      const timeLeft = (expirationTime - now) / 1000;
-      return message.channel.send(
-        `Please wait ${timeLeft.toFixed(1)} more second(s)`).then(message=> message.delete(5000));
+        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+        if (now < expirationTime) {
+            const timeLeft = (expirationTime - now) / 1000;
+            return message.channel.send(
+                `Please wait ${timeLeft.toFixed(1)} more second(s)`).then(message => message.delete(5000));
+        }
     }
-  }
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     try {
         command.execute(message, args);
     } catch (error) {
-    console.error(error);
-    message.channel.send(error);
-  }
+        console.error(error);
+        message.channel.send(error);
+    }
 
 
 
