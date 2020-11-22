@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const bot = require("discord.js");
-const { relativeTimeRounding } = require('moment');
+
 module.exports = {
   name: "ban",
   aliases: ["ban"],
@@ -35,7 +35,7 @@ module.exports = {
       .catch(error =>
         message.channel.send(`Sorry, I coldn't ban because of: ${error}`)
       );
-    let flo = bot.channels.cache.get("779775995905310750");
+    let flo = message.guild.channels.cache.get("779775995905310750");
     let bean = new Discord.MessageEmbed()
       .setColor(color)
       .setTitle('Ban')
